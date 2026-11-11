@@ -4,6 +4,7 @@ body {
   align-items: center;
   flex-direction: column;
   background-color: #17191d;
+  margin: 0;
 }
 
 #title {
@@ -16,9 +17,27 @@ body {
 }
 
 #playfield {
+  position: relative;
   margin: 20px;
   width: 600px;
   height: 400px;
   border: 2px solid gray;
   border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+  background-color: black;
+}
+
+#start-button,
+#cancel-button {
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+  font-size: 15px;
+}
+
+#aim-circle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: red;
+  border-radius: 50%;
 }
