@@ -10,6 +10,8 @@ const timerMode = document.querySelector('#timer-mode');
 
 const score = document.querySelector('#score');
 
+const misses = document.querySelector('#misses');
+
 const playField = document.querySelector('#playfield');
 
 const startButton = document.querySelector('#start-button');
@@ -24,6 +26,9 @@ aimCircle.id = 'aim-circle';
 let scoreCount = 0;
 score.textContent = `Score: ${scoreCount}`;
 
+let missesCount = 0;
+misses.textContent = `Misses: ${missesCount}`;
+
 function randomCoordinate(max) {
   return Math.floor(Math.random() * (max + 1));
 }
@@ -31,7 +36,9 @@ function randomCoordinate(max) {
 function finishGame() {
   aimCircle.remove();
   scoreCount = 0;
+  missesCount = 0;
   score.textContent = `Score: ${scoreCount}`;
+  misses.textContent = `Misses: ${missesCount}`;
   finishButton.style.display = 'none';
   startButton.style.display = 'flex';
   startButton.classList.remove('started');
@@ -42,7 +49,15 @@ function swapScreen() {
   chooseContainer.classList.add('active');
 }
 
-aimCircle.addEventListener('click', () => {
+playField.addEventListener('click', () => {
+  if (startButton.classList.contains('started')) {
+    missesCount++;
+    misses.textContent = `Misses: ${missesCount}`;
+  }
+});
+
+aimCircle.addEventListener('click', (event) => {
+  event.stopPropagation();
   const maxLeft = playField.clientWidth - aimCircle.clientWidth;
   const maxTop = playField.clientHeight - aimCircle.clientHeight;
 
