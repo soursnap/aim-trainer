@@ -8,11 +8,35 @@
 </head>
 
 <body>
-    <h1 id="title">Aim Trainer</h1>
-    <div id="score"></div>
-    <div id="playfield">
-    </div>
-    <button id="start-button">Начать</button>
+    <main>
+        <h1>Aim Trainer</h1>
+        <div id="screen-container">
+            <div id="choose-container">
+                <h2>ВЫБЕРИТЕ РЕЖИМ</h2>
+                <div id="choose-modes">
+                    <div id="infinity-mode">
+                        <img class="choose-avatar" src="images/choose-avatars/infinity.PNG" alt="Бесконечность">
+                        <h3>РАЗМИНКА</h3>
+                        <p>Раскликайся без ограничений</p>
+                    </div>
+                    <div id="timer-mode">
+                        <img class="choose-avatar" src="images/choose-avatars/timer.PNG" alt="Таймер">
+                        <h3>30 СЕКУНД</h3>
+                        <p>Улучшай свой рекорд</p>
+                    </div>
+                </div>
+            </div>
+            <div id="game-container">
+                <div id="score"></div>
+                <div id="playfield"></div>
+                <div id="game-control-buttons">
+                    <button id="start-button">Начать</button>
+                    <button id="finish-button">Закончить</button>
+                    <button id="quit-button">В меню</button>
+                </div>
+            </div>
+        </div>
+    </main>
     <script src="js/script.js"></script>
 </body>
 

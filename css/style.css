@@ -1,14 +1,110 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   background-color: #17191d;
   margin: 0;
 }
 
-#title {
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
   color: white;
+}
+
+p {
+  color: gray;
+}
+
+#screen-container {
+  display: grid;
+}
+
+#choose-container {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transition:
+    opacity 1s ease-in-out,
+    visibility 1s ease-in-out;
+  grid-area: screen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#choose-modes {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  padding: 20px;
+}
+
+.choose-avatar {
+  width: 100px;
+  height: 100px;
+}
+
+#infinity-mode,
+#timer-mode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 350px;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+  background-color: black;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+
+#infinity-mode:hover,
+#timer-mode:hover {
+  background-color: rgb(22, 22, 22);
+  transform: translateY(-10px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.8);
+}
+
+#game-container {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 1s ease-in-out,
+    visibility 1s ease-in-out;
+  grid-area: screen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#choose-container.active {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 1s ease-in-out,
+    visibility 0s linear 1s;
+}
+
+#game-container.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  transition:
+    opacity 1s ease-in-out,
+    visibility 0s linear;
 }
 
 #score {
@@ -28,10 +124,23 @@ body {
 }
 
 #start-button,
-#cancel-button {
+#finish-button,
+#quit-button {
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
   font-size: 15px;
+  background-color: gray;
+  color: white;
+}
+
+#finish-button {
+  display: none;
+}
+
+#game-control-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 #aim-circle {
