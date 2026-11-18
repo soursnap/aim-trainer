@@ -14,6 +14,8 @@ const score = document.querySelector('#score');
 
 const misses = document.querySelector('#misses');
 
+const accuracy = document.querySelector('#accuracy');
+
 const playField = document.querySelector('#playfield');
 
 const startButton = document.querySelector('#start-button');
@@ -35,6 +37,9 @@ score.textContent = `Score: ${scoreCount}`;
 let missesCount = 0;
 misses.textContent = `Misses: ${missesCount}`;
 
+let accuracyCount = 0;
+accuracy.textContent = `Accuracy: ${accuracyCount} %`;
+
 let timerCount = 0;
 
 let timerId = 0;
@@ -52,8 +57,10 @@ function finishGame() {
 
   scoreCount = 0;
   missesCount = 0;
+  accuracyCount = 0;
   score.textContent = `Score: ${scoreCount}`;
   misses.textContent = `Misses: ${missesCount}`;
+  accuracy.textContent = `Accuracy: ${accuracyCount} %`;
 
   finishButton.style.display = 'none';
   startButton.style.display = 'flex';
@@ -77,9 +84,40 @@ function swapScreen() {
   chooseContainer.classList.add('active');
 }
 
+function timerModeTimer() {
+  return setInterval(() => {
+    if (timerCount === 0) {
+      clearInterval(timerId);
+      alert(
+        `Время вышло! \n Результаты: \n Попаданий - ${scoreCount} \n Промахов - ${missesCount} \n`
+      );
+      finishGame();
+      return;
+    } else if (timerCount < 7) {
+      timer.classList.add('last-seconds');
+    }
+    timerCount--;
+    timer.textContent = `Time: ${timerCount}`;
+  }, 1000);
+}
+
+function infinityModeTimer() {
+  return setInterval(() => {
+    infinityCount++;
+    timer.textContent = `Time: ${infinityCount}`;
+  }, 1000);
+}
+
+function setAccuracy() {
+  let scoreMissesSum = scoreCount + missesCount;
+  accuracyCount = scoreMissesSum === 0 ? 0 : ((scoreCount / scoreMissesSum) * 100).toFixed(1);
+  accuracy.textContent = `Accuracy: ${accuracyCount} %`;
+}
+
 playField.addEventListener('click', () => {
   if (isGameRunning) {
     missesCount++;
+    setAccuracy();
     misses.textContent = `Misses: ${missesCount}`;
   }
 });
@@ -93,6 +131,7 @@ aimCircle.addEventListener('click', (event) => {
   aimCircle.style.top = `${randomCoordinate(maxTop)}px`;
 
   scoreCount++;
+  setAccuracy();
   score.textContent = `Score: ${scoreCount}`;
 });
 
@@ -150,27 +189,3 @@ startButton.addEventListener('click', () => {
       break;
   }
 });
-
-function timerModeTimer() {
-  return setInterval(() => {
-    if (timerCount === 0) {
-      clearInterval(timerId);
-      alert(
-        `Время вышло! \n Результаты: \n Попаданий - ${scoreCount} \n Промахов - ${missesCount} \n`
-      );
-      finishGame();
-      return;
-    } else if (timerCount < 7) {
-      timer.classList.add('last-seconds');
-    }
-    timerCount--;
-    timer.textContent = `Time: ${timerCount}`;
-  }, 1000);
-}
-
-function infinityModeTimer() {
-  return setInterval(() => {
-    infinityCount++;
-    timer.textContent = `Time: ${infinityCount}`;
-  }, 1000);
-}

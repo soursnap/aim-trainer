@@ -132,7 +132,8 @@ p {
 
 #score,
 #misses,
-#timer {
+#timer,
+#accuracy {
   color: white;
   font-size: 30px;
 }
