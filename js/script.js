@@ -36,9 +36,12 @@ let missesCount = 0;
 misses.textContent = `Misses: ${missesCount}`;
 
 let timerCount = 0;
-timer.textContent = `Time: ${timerCount}`;
 
 let timerId = 0;
+
+let infinityCount = 0;
+
+let infinityTimerId = 0;
 
 function randomCoordinate(max) {
   return Math.floor(Math.random() * (max + 1));
@@ -55,11 +58,18 @@ function finishGame() {
   finishButton.style.display = 'none';
   startButton.style.display = 'flex';
   isGameRunning = false;
-  timer.classList.remove('last-seconds');
-  clearInterval(timerId);
-  timerCount = gameMode === 'timer' ? 30 : 0;
-  timerId = 0;
-  timer.textContent = `Time: ${timerCount}`;
+  if (gameMode === 'timer') {
+    clearInterval(timerId);
+    timer.classList.remove('last-seconds');
+    timerCount = 30;
+    timerId = 0;
+    timer.textContent = `Time: ${timerCount}`;
+  } else if (gameMode === 'infinity') {
+    clearInterval(infinityTimerId);
+    infinityCount = 0;
+    infinityTimerId = 0;
+    timer.textContent = `Time: ${infinityCount}`;
+  }
 }
 
 function swapScreen() {
@@ -88,8 +98,8 @@ aimCircle.addEventListener('click', (event) => {
 
 infinityMode.addEventListener('click', () => {
   gameMode = 'infinity';
-  timerCount = 0;
-  timer.textContent = `Time: ${timerCount}`;
+  infinityCount = 0;
+  timer.textContent = `Time: ${infinityCount}`;
   swapScreen();
 });
 
@@ -133,7 +143,7 @@ startButton.addEventListener('click', () => {
 
   switch (gameMode) {
     case 'infinity':
-      timerId = infinityModeTimer();
+      infinityTimerId = infinityModeTimer();
       break;
     case 'timer':
       timerId = timerModeTimer();
@@ -160,7 +170,7 @@ function timerModeTimer() {
 
 function infinityModeTimer() {
   return setInterval(() => {
-    timerCount++;
-    timer.textContent = `Time: ${timerCount}`;
+    infinityCount++;
+    timer.textContent = `Time: ${infinityCount}`;
   }, 1000);
 }
