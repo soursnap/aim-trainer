@@ -35,8 +35,9 @@ score.textContent = `Score: ${scoreCount}`;
 let missesCount = 0;
 misses.textContent = `Misses: ${missesCount}`;
 
-let timerCount = 30;
+let timerCount = 0;
 timer.textContent = `Time: ${timerCount}`;
+
 let timerId = 0;
 
 function randomCoordinate(max) {
@@ -56,7 +57,7 @@ function finishGame() {
   isGameRunning = false;
   timer.classList.remove('last-seconds');
   clearInterval(timerId);
-  timerCount = 30;
+  timerCount = gameMode === 'timer' ? 30 : 0;
   timerId = 0;
   timer.textContent = `Time: ${timerCount}`;
 }
@@ -87,20 +88,21 @@ aimCircle.addEventListener('click', (event) => {
 
 infinityMode.addEventListener('click', () => {
   gameMode = 'infinity';
+  timerCount = 0;
+  timer.textContent = `Time: ${timerCount}`;
   swapScreen();
 });
 
 timerMode.addEventListener('click', () => {
   gameMode = 'timer';
-  swapScreen();
-  timer.style.display = 'flex';
+  timerCount = 30;
   timer.textContent = `Time: ${timerCount}`;
+  swapScreen();
 });
 
 quitButton.addEventListener('click', () => {
   finishGame();
   gameMode = 'none';
-  timer.style.display = 'none';
   gameContainer.classList.remove('active');
   chooseContainer.classList.remove('active');
 });
@@ -131,24 +133,34 @@ startButton.addEventListener('click', () => {
 
   switch (gameMode) {
     case 'infinity':
+      timerId = infinityModeTimer();
       break;
     case 'timer':
-      timerId = countDown();
+      timerId = timerModeTimer();
       break;
   }
 });
 
-function countDown() {
+function timerModeTimer() {
   return setInterval(() => {
     if (timerCount === 0) {
       clearInterval(timerId);
-      alert('Время вышло!');
+      alert(
+        `Время вышло! \n Результаты: \n Попаданий - ${scoreCount} \n Промахов - ${missesCount} \n`
+      );
       finishGame();
       return;
     } else if (timerCount < 7) {
       timer.classList.add('last-seconds');
     }
     timerCount--;
+    timer.textContent = `Time: ${timerCount}`;
+  }, 1000);
+}
+
+function infinityModeTimer() {
+  return setInterval(() => {
+    timerCount++;
     timer.textContent = `Time: ${timerCount}`;
   }, 1000);
 }

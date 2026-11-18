@@ -1,23 +1,42 @@
+@font-face {
+  font-family: 'MainFont';
+  src: url('../fonts/SquadaOne-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background-color: #17191d;
   margin: 0;
+  font-family: 'MainFont', sans-serif;
 }
 
 main {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-h1,
-h2,
+h1 {
+  color: white;
+  font-size: 60px;
+}
+
+h2 {
+  color: white;
+  font-size: 40px;
+}
+
 h3 {
   color: white;
+  font-size: 30px;
 }
 
 p {
   color: gray;
+  font-size: 20px;
 }
 
 #screen-container {
@@ -26,11 +45,9 @@ p {
 
 #choose-container {
   opacity: 1;
-  /* visibility: visible;
-  pointer-events: all; */
   transition:
-    opacity 1s ease-in-out,
-    visibility 1s ease-in-out;
+    opacity 0.1s ease-in-out,
+    visibility 0.1s ease-in-out;
   grid-area: screen;
   display: flex;
   justify-content: center;
@@ -117,18 +134,14 @@ p {
 #misses,
 #timer {
   color: white;
-  font-size: 20px;
-}
-
-#timer {
-  display: none;
+  font-size: 30px;
 }
 
 #playfield {
   position: relative;
   margin: 20px;
-  width: 600px;
-  height: 400px;
+  width: 900px;
+  height: 550px;
   border: 2px solid gray;
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
@@ -137,8 +150,8 @@ p {
 
 #aim-circle {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: red;
   border-radius: 50%;
 }
@@ -153,9 +166,10 @@ p {
 #quit-button {
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
-  font-size: 15px;
+  font-size: 20px;
   background-color: gray;
   color: white;
+  font-weight: bold;
 }
 
 #finish-button {
