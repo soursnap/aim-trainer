@@ -4,6 +4,16 @@ const chooseContainer = document.querySelector('#choose-container');
 
 const gameContainer = document.querySelector('#game-container');
 
+const resultContainer = document.querySelector('#result-container');
+
+const finalScore = document.querySelector('#final-score');
+
+const finalMisses = document.querySelector('#final-misses');
+
+const finalAccuracy = document.querySelector('#final-accuracy');
+
+const finalTime = document.querySelector('#final-timer');
+
 const infinityMode = document.querySelector('#infinity-mode');
 
 const timerMode = document.querySelector('#timer-mode');
@@ -52,45 +62,41 @@ function randomCoordinate(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 
-function finishGame() {
-  aimCircle.remove();
+function swapScreen() {
+  if (gameContainer.classList.contains('active')) {
+    gameContainer.classList.remove('active');
+    resultContainer.classList.add('active');
+  } else {
+    chooseContainer.classList.add('active');
+    gameContainer.classList.add('active');
+  }
+}
 
-  scoreCount = 0;
-  missesCount = 0;
-  accuracyCount = 0;
-  score.textContent = `Score: ${scoreCount}`;
-  misses.textContent = `Misses: ${missesCount}`;
-  accuracy.textContent = `Accuracy: ${accuracyCount} %`;
+function stopGame() {
+  aimCircle.remove();
 
   finishButton.style.display = 'none';
   startButton.style.display = 'flex';
   isGameRunning = false;
+
   if (gameMode === 'timer') {
     clearInterval(timerId);
-    timer.classList.remove('last-seconds');
-    timerCount = 30;
-    timerId = 0;
-    timer.textContent = `Time: ${timerCount}`;
   } else if (gameMode === 'infinity') {
     clearInterval(infinityTimerId);
-    infinityCount = 0;
-    infinityTimerId = 0;
-    timer.textContent = `Time: ${infinityCount}`;
   }
 }
 
-function swapScreen() {
-  gameContainer.classList.add('active');
-  chooseContainer.classList.add('active');
+function finishGame() {
+  stopGame();
+  swapScreen();
+  showResultScreen();
+  resetStats();
 }
 
 function timerModeTimer() {
   return setInterval(() => {
     if (timerCount === 0) {
       clearInterval(timerId);
-      alert(
-        `Время вышло! \n Результаты: \n Попаданий - ${scoreCount} \n Промахов - ${missesCount} \n`
-      );
       finishGame();
       return;
     } else if (timerCount < 7) {
@@ -150,10 +156,12 @@ timerMode.addEventListener('click', () => {
 });
 
 quitButton.addEventListener('click', () => {
-  finishGame();
+  stopGame();
+  resetStats();
   gameMode = 'none';
   gameContainer.classList.remove('active');
   chooseContainer.classList.remove('active');
+  resultContainer.classList.remove('active');
 });
 
 finishButton.addEventListener('click', () => {
@@ -189,3 +197,33 @@ startButton.addEventListener('click', () => {
       break;
   }
 });
+
+function showResultScreen() {
+  finalScore.textContent = `Final score: ${scoreCount}`;
+  finalMisses.textContent = `Final misses: ${missesCount}`;
+  finalAccuracy.textContent = `Final accuracy: ${accuracyCount}%`;
+  if (gameMode === 'infinity') {
+    finalTime.textContent = `Final time: ${infinityCount} secs`;
+  } else if (gameMode === 'timer') {
+    finalTime.textContent = `Final time: ${30 - timerCount} secs`;
+  }
+}
+
+function resetStats() {
+  scoreCount = 0;
+  missesCount = 0;
+  accuracyCount = 0;
+  score.textContent = `Score: ${scoreCount}`;
+  misses.textContent = `Misses: ${missesCount}`;
+  accuracy.textContent = `Accuracy: ${accuracyCount} %`;
+  if (gameMode === 'timer') {
+    timer.classList.remove('last-seconds');
+    timerCount = 30;
+    timerId = 0;
+    timer.textContent = `Time: ${timerCount}`;
+  } else if (gameMode === 'infinity') {
+    infinityCount = 0;
+    infinityTimerId = 0;
+    timer.textContent = `Time: ${infinityCount}`;
+  }
+}

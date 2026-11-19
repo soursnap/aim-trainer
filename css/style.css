@@ -69,6 +69,24 @@ p {
   flex-direction: column;
 }
 
+#result-container {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 1s ease-in-out,
+    visibility 1s ease-in-out;
+  grid-area: screen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid gray;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+  background-color: black;
+}
+
 #choose-container.active {
   opacity: 0;
   visibility: hidden;
@@ -79,6 +97,15 @@ p {
 }
 
 #game-container.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  transition:
+    opacity 1s ease-in-out,
+    visibility 0s linear;
+}
+
+#result-container.active {
   visibility: visible;
   opacity: 1;
   pointer-events: all;
@@ -133,7 +160,8 @@ p {
 #score,
 #misses,
 #timer,
-#accuracy {
+#accuracy,
+#final-stats {
   color: white;
   font-size: 30px;
 }
