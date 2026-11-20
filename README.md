@@ -46,3 +46,14 @@ aim-trainer/
 ├── images/
 └── README.md
 ```
+
+## Screenshots
+
+### Main Menu
+![Main Menu](screenshots/main-menu.png)
+
+### Gameplay
+![Gameplay](screenshots/gameplay.png)
+
+### Results
+![Results](screenshots/results.png)
