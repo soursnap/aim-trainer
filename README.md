@@ -44,6 +44,7 @@ aim-trainer/
 │   └── script.js
 ├── fonts/
 ├── images/
+├── screenshots/
 └── README.md
 ```
 
