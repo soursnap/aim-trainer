@@ -31,7 +31,8 @@ git clone https://github.com/soursnap/aim-trainer.git
 
 2. Open the project folder.
 3. Open index.html in your browser.
-   No additional dependencies or installation required.
+
+No additional dependencies or installation required.
 
 ## Project Structure
 
